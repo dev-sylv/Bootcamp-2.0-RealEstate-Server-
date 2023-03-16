@@ -56,6 +56,6 @@ const UserSchema: Schema<IUSER> = new Schema({
 
 
 
-const UserModels = model<IUSER>("User", UserSchema);
+const UserModels = model<IUSER>("Users", UserSchema);
 
 export default UserModels;
