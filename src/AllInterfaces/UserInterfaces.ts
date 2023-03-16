@@ -4,25 +4,54 @@ import { Document } from "mongoose";
 export interface IUSER extends Document{
     name: string;
     email: string;
+    Image: string;
+    Bio: string;
+    phoneno: number;
     password: string;
     confirmPassword: string;
     role: string;
+    houses: {}[];
 }
 
 // Agent Interfaces
 export interface IAGENT extends Document{
     name: string;
     email: string;
+    Image: string;
+    Bio: string;
+    phoneno: number;
     password: string;
     confirmPassword: string;
     role: string;
+    houses: {}[];
 }
 
 // Admin Interfaces
 export interface IADMIN extends Document{
     name: string;
     email: string;
+    Image: string;
+    Bio: string;
+    phoneno: number;
     password: string;
     confirmPassword: string;
     role: string;
+    houses: {}[];
 }
+
+
+// House Interfaces
+export interface IHOUSE extends Document{
+    houseName: string;
+    houseDescription: string;
+    housePrice: string;
+    bedrooms: string;
+    bathrooms: string;
+    HouseImage: string;
+    houseRentage: string;
+    houseLocation: string;
+    agentname: string;
+    views: []
+}
+
+

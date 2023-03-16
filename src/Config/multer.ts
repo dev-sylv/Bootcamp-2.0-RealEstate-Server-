@@ -26,7 +26,7 @@ const Storage = multer.diskStorage({
 
 const AgentUploads = multer({
     storage: Storage
-}).single("AgentImage");
+}).single("Image");
 
 const HouseUploads = multer({
     storage: Storage
