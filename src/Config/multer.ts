@@ -24,7 +24,7 @@ const Storage = multer.diskStorage({
     }
 });
 
-const AgentUploads = multer({
+const UserUploads = multer({
     storage: Storage
 }).single("Image");
 
@@ -32,4 +32,4 @@ const HouseUploads = multer({
     storage: Storage
 }).single("HouseImage");
 
-export {AgentUploads, HouseUploads};
+export {UserUploads, HouseUploads};

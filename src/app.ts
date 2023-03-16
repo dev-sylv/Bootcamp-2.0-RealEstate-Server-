@@ -4,6 +4,7 @@ import cors from "cors";
 
 import morgan from "morgan"
 import HouseRouter from "./Routes/HouseRoutes";
+import UserRouter from "./Routes/UserRoutes";
 
 export const AppConfig = (app: Application) =>{
     // Configuring middlewares needed for express server 
@@ -15,7 +16,7 @@ export const AppConfig = (app: Application) =>{
     // House Routes:
     app.use("/api", HouseRouter)
     // Users Routes:
-    // app.use("/api")
+    app.use("/api", UserRouter)
 
     // Agents Routes:
     // app.use("/api")
