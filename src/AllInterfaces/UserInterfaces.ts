@@ -24,6 +24,7 @@ export interface IAGENT extends Document{
     confirmPassword: string;
     role: string;
     houses: {}[];
+    users: {}[];
 }
 
 // Admin Interfaces
@@ -37,6 +38,8 @@ export interface IADMIN extends Document{
     confirmPassword: string;
     role: string;
     houses: {}[];
+    users: {}[];
+    agents: {}[];
 }
 
 

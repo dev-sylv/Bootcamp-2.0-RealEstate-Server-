@@ -48,6 +48,12 @@ const AgentSchema: Schema<IAGENT> = new Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Houses"
         }
+    ],
+    users:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Users"
+        }
     ]
 },
 {
