@@ -103,3 +103,8 @@ export const UploadHouses = AsyncHandler(async(
 
        
 })
+
+// View all houses:
+
+
+// Search for houses

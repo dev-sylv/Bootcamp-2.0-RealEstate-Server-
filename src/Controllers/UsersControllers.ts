@@ -5,6 +5,7 @@ import { AsyncHandler } from "../Utils/AsyncHandler";
 import Cloud from "../Config/cloudinary";
 import bcrypt from "bcrypt"
 import { AppError, HTTPCODES } from "../Utils/AppError";
+import HouseModels from "../Models/HouseModels";
 
 // Users Registration:
 export const UsersRegistration = AsyncHandler(async(
@@ -72,4 +73,26 @@ export const UsersLogin = AsyncHandler(async(
         })
     }
 
+})
+
+// Users to see all house:
+export const UsersToSeeAllHouse = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+    const AllHouse = await UserModels.findById(req.params.userID).populate({
+        path: "Houses"
+    })
+    if (!AllHouse) {
+        next(new AppError({
+            message: "Couldn't see all houses",
+            httpcode: HTTPCODES.NOT_FOUND
+        }))
+    }
+
+    return res.status(200).json({
+        message: "Users successfully saw all the houses",
+        data: AllHouse
+    })
 })
