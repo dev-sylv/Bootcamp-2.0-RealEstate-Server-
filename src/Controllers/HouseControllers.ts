@@ -105,6 +105,29 @@ export const UploadHouses = AsyncHandler(async(
 })
 
 // View all houses:
-
+export const UsersViewOfHouses = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+    try {
+        const views = await HouseModels.findByIdAndUpdate(
+            req.params.id,
+            {
+                $push: {views: req.body.ip}
+            },
+            {new: true}
+        )
+        return res.status(200).json({
+            message: "Successfully got user views on the houses",
+            data: views
+        })
+    } catch (error) {
+        return res.status(400).json({
+            message: "An error occured in getting user views",
+            data: error
+        })
+    }
+});
 
 // Search for houses

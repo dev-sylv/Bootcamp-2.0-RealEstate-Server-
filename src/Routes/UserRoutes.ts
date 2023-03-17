@@ -8,6 +8,6 @@ const UserRouter = express.Router();
 
 UserRouter.route("/registeruser").post(UserUploads, UsersRegistration)
 UserRouter.route("/loginuser").post(UsersLogin)
-UserRouter.route("/userseeallhouses").get(UsersToSeeAllHouse)
+UserRouter.route("/userseeallhouses/:userID").get(UsersToSeeAllHouse)
 
 export default UserRouter;
