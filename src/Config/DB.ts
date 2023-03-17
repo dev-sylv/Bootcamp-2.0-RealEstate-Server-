@@ -6,7 +6,7 @@ const db_Url = "mongodb://localhost/Bootcamp(RealEstate)";
 
 export const DBCONNECTION = async() =>{
     try {
-        const conn = await mongoose.connect(db_Url);
+        const conn = await mongoose.connect(LIVE_URL);
         console.log("")
         console.log(`Database is connected to ${conn.connection.host}`)
     } catch (error) {

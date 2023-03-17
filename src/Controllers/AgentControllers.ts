@@ -73,3 +73,43 @@ export const AgentLogin = AsyncHandler(async(
     }
 
 })
+
+// Get all agents:
+export const GetAllAgents = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+    const AllAgents = await AgentModels.find();
+    if (!AllAgents) {
+        next(new AppError({
+            message: "An error occured in getting all agents",
+            httpcode: HTTPCODES.NOT_FOUND
+        }))
+    }
+
+    return res.status(200).json({
+        message: "Successfully got all Agents",
+        data: AllAgents
+    })
+})
+
+// Get all agents:
+export const GetOneAgent = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+    const OneAgent = await AgentModels.findById(req.params.agentID);
+    if (!OneAgent) {
+        next(new AppError({
+            message: "An error occured in getting this agent",
+            httpcode: HTTPCODES.NOT_FOUND
+        }))
+    }
+
+    return res.status(200).json({
+        message: "Successfully got all Agents",
+        data: OneAgent
+    })
+})
