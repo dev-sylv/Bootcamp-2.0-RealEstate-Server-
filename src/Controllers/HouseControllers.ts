@@ -131,3 +131,23 @@ export const UsersViewOfHouses = AsyncHandler(async(
 });
 
 // Search for houses
+export const QuerySearchforHouse = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+    try {
+        const search = req.query;
+        const searchQuery = await HouseModels.find(search);
+    
+        return res.status(200).json({
+            message: "Successfully got the searched house",
+            data: searchQuery
+        })
+    } catch (error) {
+        return res.status(400).json({
+            message: "An error occured in getting searched house",
+            data: error
+        })
+    }
+});
