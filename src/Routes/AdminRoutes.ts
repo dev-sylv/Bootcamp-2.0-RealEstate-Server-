@@ -1,9 +1,10 @@
 import express from "express";
 
-import { AdminLogin } from "../Controllers/AdminControllers";
+import { AdminLogin, AdminRegistration } from "../Controllers/AdminControllers";
 
 const AdminRouter = express.Router();
 
-AdminRouter.route("/loginagents").post(AdminLogin)
+AdminRouter.route("/registeradmin").post(AdminRegistration)
+AdminRouter.route("/loginadmin").post(AdminLogin)
 
 export default AdminRouter;

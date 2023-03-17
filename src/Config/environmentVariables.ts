@@ -5,5 +5,6 @@ dotenv.config()
 export const EnvironmentVariables = {
     PORT: process.env.port as string,
     ADMINEMAIL: process.env.ADMINEMAIL as string,
-    ADMINPASSWORD: process.env.ADMINPASSWORD as string
+    ADMINPASSWORD: process.env.ADMINPASSWORD as string,
+    ADMINNAME: process.env.ADMINNAME as string
 }
