@@ -55,15 +55,18 @@ export const AdminLogin = AsyncHandler(async(
     const adminpassword = EnvironmentVariables.ADMINPASSWORD
     const adminname =EnvironmentVariables.ADMINNAME
 
-    if (email !== adminemail && password !== adminpassword) {
+    if (adminemail !== email || adminpassword !== password) {
         next(new AppError({
             message: "You are not an admin",
             httpcode: HTTPCODES.NOT_FOUND
         }))
     }
 
-    return res.status(200).json({
-        message: "Admin login successfull",
-        data: `Welcome Admin ${adminname}`
-    })
+    if (email === adminemail && password === adminpassword) {
+        return res.status(200).json({
+            message: "Admin login successfull",
+            data: `Welcome Admin ${adminname}`
+        })
+    }
+
 })
