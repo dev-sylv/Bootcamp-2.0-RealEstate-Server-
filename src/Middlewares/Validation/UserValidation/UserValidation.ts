@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { validator } from "../Validator";
+import { validator } from "../validator";
 import { UserSchemaValidation } from "./UserSchemaValidation"
 
 export const UserRegisterValidation: RequestHandler = ( req, res, next ) => validator(UserSchemaValidation.Register, req.body, next);
