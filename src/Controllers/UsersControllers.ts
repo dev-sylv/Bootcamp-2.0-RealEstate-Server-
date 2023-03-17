@@ -34,7 +34,7 @@ export const UsersRegistration = AsyncHandler(async(
 
     agent?.users.push(mongoose.Types.ObjectId)
     agent?.save()
-    
+
     if (Users) {
         next(new AppError({
             message: "User with this account already exists",
@@ -101,5 +101,39 @@ export const UsersToSeeAllHouse = AsyncHandler(async(
     return res.status(200).json({
         message: "Users successfully saw all the houses",
         data: AllHouse
+    })
+})
+
+// Get All USERS:
+export const GetAllUsers = AsyncHandler(async(req: Request, res: Response, next: NextFunction) =>{
+    const AllUsers  = await UserModels.find();
+
+    if (!AllUsers) {
+        next(new AppError({
+            message: "Couldn't get all users",
+            httpcode: HTTPCODES.NOT_FOUND
+        }))
+    }
+
+    return res.status(200).json({
+        message: "Successfully got all Users",
+        data: AllUsers
+    })
+})
+
+// Get One USER:
+export const GetOneUser = AsyncHandler(async(req: Request, res: Response, next: NextFunction) =>{
+    const AllUsers  = await UserModels.findById(req.params.userID);
+
+    if (!AllUsers) {
+        next(new AppError({
+            message: "Couldn't get all users",
+            httpcode: HTTPCODES.NOT_FOUND
+        }))
+    }
+
+    return res.status(200).json({
+        message: "Successfully got this User",
+        data: AllUsers
     })
 })
