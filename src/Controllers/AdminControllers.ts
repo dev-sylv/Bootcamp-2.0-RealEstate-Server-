@@ -69,4 +69,52 @@ export const AdminLogin = AsyncHandler(async(
         })
     }
 
+});
+
+// Admin to see all users:
+export const AdminSeeAllUsers = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+    const admin = await AdminModels.findById(req.params.adminID).populate({
+        path: "Users"
+    });
+
+    if (!admin) {
+        next(
+            new AppError({
+                message: "Can't see all users on platform",
+                httpcode: HTTPCODES.NOT_FOUND,
+            })
+        )
+    }
+    return res.status(HTTPCODES.OK).json({
+        message: `Successfully seen all users`,
+        data: admin
+    })
+})
+
+// Admin to see all agents:
+export const AdminSeeAllAgents = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+    const admin = await AdminModels.findById(req.params.adminID).populate({
+        path: "Agents"
+    });
+
+    if (!admin) {
+        next(
+            new AppError({
+                message: "Can't see all agents on platform",
+                httpcode: HTTPCODES.NOT_FOUND,
+            })
+        )
+    }
+    return res.status(HTTPCODES.OK).json({
+        message: `Successfully seen all Agents`,
+        data: admin
+    })
 })

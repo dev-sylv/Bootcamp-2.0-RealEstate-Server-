@@ -112,4 +112,54 @@ export const GetOneAgent = AsyncHandler(async(
         message: "Successfully got all Agents",
         data: OneAgent
     })
+});
+
+// Agent to see all users:
+export const SeeAllUsers = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+    const agent = await AgentModels.findById(req.params.agentID).populate({
+        path: "Users"
+    });
+
+    if (!agent) {
+        next(
+            new AppError({
+                message: "Can't see all users on platform",
+                httpcode: HTTPCODES.NOT_FOUND,
+            })
+        )
+    }
+    return res.status(HTTPCODES.OK).json({
+        message: `Successfully seen all users`,
+        data: agent
+    })
 })
+
+
+// Get one house posted by an agent:
+export const SingleAgentHouse = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+    const agent = await AgentModels.findById(req.params.agentID).populate({
+        path: "Houses"
+    });
+
+    if (!agent) {
+        next(
+            new AppError({
+                message: "No house found by this agent",
+                httpcode: HTTPCODES.NOT_FOUND,
+            })
+        )
+    }
+    return res.status(HTTPCODES.OK).json({
+        message: `Successfully got all houses posted by ${agent?.name}`,
+        data: agent
+    })
+})
+
