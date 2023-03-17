@@ -41,7 +41,7 @@ const AgentSchema: Schema<IAGENT> = new Schema({
         required: [true, "Please enter your role"],
         message: "You must either be a User, Agent or Admin",
         enum: ["User", "Admin", "Agent"],
-        default: "User"
+        default: "Agent"
     },
     houses:[
         {
