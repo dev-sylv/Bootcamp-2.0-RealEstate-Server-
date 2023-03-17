@@ -6,6 +6,8 @@ import Cloud from "../Config/cloudinary";
 import bcrypt from "bcrypt"
 import { AppError, HTTPCODES } from "../Utils/AppError";
 import HouseModels from "../Models/HouseModels";
+import AgentModels from "../Models/AgentModels";
+import mongoose from "mongoose";
 
 // Users Registration:
 export const UsersRegistration = AsyncHandler(async(
@@ -14,6 +16,8 @@ export const UsersRegistration = AsyncHandler(async(
     next: NextFunction
 ) =>{
     const {name, email, Bio, phoneno, password, confirmPassword, role, houses } = req.body;
+
+    const agent = await AgentModels.findById(req.params.agentID)
     
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt)
@@ -28,6 +32,9 @@ export const UsersRegistration = AsyncHandler(async(
         role,
     })
 
+    agent?.users.push(mongoose.Types.ObjectId)
+    agent?.save()
+    
     if (Users) {
         next(new AppError({
             message: "User with this account already exists",
