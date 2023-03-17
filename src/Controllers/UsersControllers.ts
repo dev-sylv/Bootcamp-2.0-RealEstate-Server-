@@ -8,26 +8,22 @@ import { AppError, HTTPCODES } from "../Utils/AppError";
 
 // Users Registration:
 export const UsersRegistration = AsyncHandler(async(
-    req: Request,
+    req: any,
     res: Response,
     next: NextFunction
 ) =>{
-    const {name, email, Image, Bio, phoneno, password, confirmPassword, role, houses } = req.body;
-
-    const CloudImg = await Cloud.uploader.upload(req!.file?.path);
-    console.log(CloudImg)
-
+    const {name, email, Bio, phoneno, password, confirmPassword, role, houses } = req.body;
+    
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt)
 
     const Users = await UserModels.create({
         name,
         email,
-        Image: CloudImg.secure_url,
         Bio,
-        phoneno,
+        phoneno: 234 + phoneno,
         password: hashedPassword,
-        confirmPassword,
+        confirmPassword: hashedPassword,
         role,
     })
 
