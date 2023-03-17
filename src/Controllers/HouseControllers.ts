@@ -5,6 +5,8 @@ import {AsyncHandler} from "../Utils/AsyncHandler";
 import {AppError, HTTPCODES} from "../Utils/AppError"
 
 import HouseModels from "../Models/HouseModels";
+import AgentModels from "../Models/AgentModels";
+import mongoose from "mongoose";
 
 // Get all houses:
 export const GetAllHouses = AsyncHandler(async(
@@ -30,7 +32,7 @@ export const GetAllHouses = AsyncHandler(async(
    
 })
 
-// Get all houses:
+// Get one houses:
 export const GetSingleHouse = AsyncHandler(async(
     req: Request,
     res: Response,
@@ -52,5 +54,50 @@ export const GetSingleHouse = AsyncHandler(async(
         data: House
     })
    
-}
-)
+})
+
+// Upload New House:
+export const UploadHouses = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+    const Agent = await AgentModels.findById(req.params.agentID);
+
+    if (!Agent) {
+        next(new AppError({
+            message: "Couldn't get Agent",
+            httpcode: HTTPCODES.NOT_FOUND
+        }))
+    }
+    
+    if (Agent?.role === "Agent") {
+        const {houseName, houseDescription, housePrice, HouseImage, houseRentage, houseLocation} = req.body;
+
+
+    const house = await HouseModels.create({
+        houseName,
+        houseDescription,
+        housePrice,
+        HouseImage,
+        houseRentage,
+        houseLocation,
+        agentname: Agent?.name,
+    })
+
+    Agent?.houses.push(new mongoose.Types.ObjectId(house._id))
+    Agent?.save();
+
+    return res.status(201).json({
+        message: "Successfully posted new houses",
+        data: house
+    })
+
+    } else {
+        return res.status(400).json({
+            message: "You're not authorized to upload houses"
+        })
+    }
+
+       
+})
